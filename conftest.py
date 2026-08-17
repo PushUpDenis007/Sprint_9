@@ -11,7 +11,7 @@ def pytest_addoption(parser):
         "--browser", 
         action="store", 
         default="chrome", 
-        help="Браузер для тестов: chrome, firefox, edge"
+        help="Браузер для тестов: chrome, firefox"
     )
 
 @pytest.fixture

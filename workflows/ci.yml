@@ -1,0 +1,53 @@
+# Файл ci.yml
+# Имя workflow
+name: Sprint 9 Tests Workflow
+permissions:
+  contents: write
+# Перечень событий-триггеров, при которых должен запускаться workflow
+on:
+  # Событие push возникает,
+  # когда изменения исходного кода приходят на сервер GitHub
+  push:
+    # Отслеживаем изменения только в ветке master
+    branches:
+      - master
+      - develop
+# Перечень задач
+jobs:
+  run-selenoid-tests:
+    runs-on: ubuntu-latest
+    steps:
+      # На GitHub Actions есть готовые описания шагов, 
+      # их можно использовать в своих workflow.
+      # Применим готовое описание шага для получения исходного кода
+      - name: Check out repository code  # Имя шага задаём сами
+        uses: actions/checkout@v3  # Берём готовое решение из библиотеки GitHub Actions
+
+      - name: Pull Chrome image
+        run: docker pull selenoid/chrome:128.0
+
+      - name: Pull Firefox image
+        run: docker pull selenoid/vnc:firefox_128.0
+
+      - name: Run tests in docker
+        # Поднимаем контейнеры и выходим при завершении работы контейнера test_docker
+        run: docker compose up --build --exit-code-from test_docker 
+
+
+      # Автоматическая сборка отчета и публикация в GitHub Pages
+      - name: Load Allure history and Generate Report
+        if: always()
+        uses: simple-elf/allure-report-action@master
+        id: allure-report
+        with:
+          allure_results: allure-results
+          allure_history: allure-history
+          keep_reports: 20
+
+      # Публикация готовой HTML-страницы в ветку gh-pages
+      - name: Deploy Allure report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: allure-history
