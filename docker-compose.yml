@@ -31,7 +31,11 @@ services:
     networks:
       - selenoid
     tty: true
-    command: ["pytest"]
+    environment:
+      - SELENOID_URL=http://selenoid:4444/wd/hub
+    volumes:
+      - ./allure-results:/app/allure-results
+    command: ["sh", "-c", "pytest --browser=chrome && pytest --browser=firefox"]
 
 networks:
   selenoid:
