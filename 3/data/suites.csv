@@ -1,7 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","887","Создание аккаунта","tests","2026-08-14","passed","2026-08-14","TestSignupPage","test_signup_page","",""
-"","1634","Авторизация","tests","2026-08-14","passed","2026-08-14","TestSigninPage","test_signin_page","",""
-"","3855","Создание рецепта","tests","2026-08-14","passed","2026-08-14","TestRecipesPage","test_recipes_page","",""
-"","1091","Создание аккаунта","tests","2026-08-14","passed","2026-08-14","TestSignupPage","test_signup_page","",""
-"","1550","Авторизация","tests","2026-08-14","passed","2026-08-14","TestSigninPage","test_signin_page","",""
-"","3700","Создание рецепта","tests","2026-08-14","passed","2026-08-14","TestRecipesPage","test_recipes_page","",""
