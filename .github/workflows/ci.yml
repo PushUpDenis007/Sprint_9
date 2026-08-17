@@ -27,7 +27,7 @@ jobs:
         run: docker pull selenoid/chrome:128.0
 
       - name: Pull Firefox image
-        run: docker pull selenoid/vnc:firefox_128.0
+        run: docker pull selenoid/vnc:128.0
 
       - name: Run tests in docker
         # Поднимаем контейнеры и выходим при завершении работы контейнера test_docker
