@@ -19,6 +19,7 @@ class RecipesPage(BasePage):
 
     @allure.step('Заполнить Название рецепта')
     def fill_name_input (self,name):
+        self.wait_for_located (Recipe.name_input)
         self.send_keys (Recipe.name_input,name)
 
     @allure.step('Добавить ингредиент')
@@ -53,9 +54,13 @@ class RecipesPage(BasePage):
     def click_create_recipe_confirm_button (self):
         self.click_element(Recipe.create_button)    
 
+    @allure.step('Дождаться появления изображения заказа')
+    def locate_recipe_image (self):
+        return self.wait_for_located(Recipe.image)
+
     @allure.step('Проверить карточку созданного рецепта')
     def check_card_in_cards_list (self,id):
-        return self.wait_for_visibility(Recipe.CARD_BY_ID(id))
+        return self.wait_for_located(Recipe.CARD_BY_ID(id))
 
     @allure.step('Получить название рецепта')
     def get_card_name (self,id):

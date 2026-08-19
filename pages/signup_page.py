@@ -1,6 +1,8 @@
 from locators.signup_page_locators import SignupPageLocators as Signup
 from locators.base_page_locators import BasePageLocators as Base
+from locators.signin_page_locators import SigninPageLocators as Signin
 from pages.base_page import BasePage
+from pages.signin_page import SigninPage
 import allure
 
 class SignupPage(BasePage):
@@ -23,12 +25,18 @@ class SignupPage(BasePage):
 
     @allure.step('Заполнить почту')
     def fill_email_input (self,email):
+        self.wait_for_located (Signup.email_input)
         self.send_keys (Signup.email_input,email)
 
     @allure.step('Заполнить пароль')
     def fill_pass_input (self,password):
         self.send_keys(Signup.password_input,password)
 
+    @allure.step('Дождаться появления кнопки входа')
+    def locate_signin_input (self):
+        return self.wait_for_located (Signin.confirm_button)
+
     @allure.step('Нажать на кнопку подтверждения Регистрации')
     def click_signup_confirm_button (self):
-        self.click_element(Signup.confirm_button)    
+        self.click_element(Signup.confirm_button)
+        return SigninPage(self.driver) 
